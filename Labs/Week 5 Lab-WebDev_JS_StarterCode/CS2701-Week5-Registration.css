@@ -15,6 +15,14 @@ header{
     margin: auto;
 }
 
+/* Accessibility: consistent, readable text */
+body,
+input,
+button {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
 /**** Menu Style *****************************************/
 nav {
     border-bottom: 1px solid black;
@@ -24,14 +32,14 @@ ul.navlist{
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
     background-color: #333;
 }
 
 ul.navlist li
 {
-    float: left;
-    display: inline;
+    float: none;
 }
 
 ul.navlist li a {
@@ -98,16 +106,49 @@ section {
 }
 
 /*Styling with a media query*/
+
 @media screen and (max-width: 700px) {
-    main{
+    main {
         flex-direction: column;
-    }
-    
-    aside {
-        min-width: 100%;
+        width: 100%;
     }
 
-    #hiddenSection{
+    aside,
+    section {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    aside {
+        min-height: 60px;
+    }
+
+    .center {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #hiddenSection {
         overflow-wrap: break-word;
     }
+}
+
+
+/* Accessibility: visible keyboard focus */
+ul.navlist li a:focus-visible,
+input:focus-visible,
+button:focus-visible,
+.center a:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 3px;
 }
