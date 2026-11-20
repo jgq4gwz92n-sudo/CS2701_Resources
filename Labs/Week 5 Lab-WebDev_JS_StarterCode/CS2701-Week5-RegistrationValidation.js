@@ -36,12 +36,43 @@ function validateForm() {
     formValid = false;
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 // Validate that all required fields are filled
+        if (
+            formData.username === "" ||
+            formData.email === "" ||
+            formData.password === "" ||
+            repPassword === ""
+        ) {
+            alert("Please complete all required fields.");
+            return;
+        }
 
 // Verify that the email address is in a valid format
-
+        if (!mailformat.test(formData.email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
 // Perform password strength and matching checks
+                if (formData.password.length < 8) {
+                    alert("Password must contain at least 8 characters.");
+                    return;
+                }
 
-// Validate that the required checkboxes are selected
+                if (formData.password !== repPassword) {
+                    alert("Passwords do not match.");
+                    return;
+                }
+        // Validate that the required checkboxes are selected
+        if (!formData.buyer && !formData.seller) {
+            alert("Please select at least one role: buyer or seller.");
+            return;
+        }
+
+        if (!tosCheckBox) {
+            alert("You must agree to the Terms of Service.");
+            return;
+        }
+
+        formValid = true;
 }
 
 //Function to write the Registration success on the page
@@ -62,6 +93,7 @@ function createNewParagraph(content){
 function submitForm(){
     readForm();
 // call the validation function
+    validateForm()
     if (formValid){
         var formText = formData.username +" registered as:\n";
         formText += formData.buyer?"buyer\n":"";
